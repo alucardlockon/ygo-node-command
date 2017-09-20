@@ -29,16 +29,52 @@ const commands = [
   {
     commandName: 'hand',
     func: hand
+  },
+  {
+    commandName: 'field',
+    func: showfield
+  },
+  {
+    commandName: 'set',
+    func: set
   }
 ]
 let deck_p1;
 let deck_p1_rt;
 let hand_p1;
 let grav_p1;
+let rid_p1;
 let deck_p2;
 let deck_p2_rt;
 let hand_p2;
 let grav_p2;
+let rid_p2;
+let field = {
+  ex_1:null,
+  ex_2:null,
+  fm_1:null,
+  fm_2:null,
+  ma_1_1:null,
+  ma_1_2:null,
+  ma_1_3:null,
+  ma_1_4:null,
+  ma_1_5:null,
+  mo_1_1:null,
+  mo_1_2:null,
+  mo_1_3:null,
+  mo_1_4:null,
+  mo_1_5:null,
+  ma_2_1:null,
+  ma_2_2:null,
+  ma_2_3:null,
+  ma_2_4:null,
+  ma_2_5:null,
+  mo_2_1:null,
+  mo_2_2:null,
+  mo_2_3:null,
+  mo_2_4:null,
+  mo_2_5:null,
+}
 
 const preStr='> ';
 
@@ -46,6 +82,7 @@ readDeck('EMmss')
 shuffle()
 draw(5)
 hand()
+showfield()
 repl()
 
 function repl() {
@@ -97,6 +134,18 @@ function hand() {
   console.log(preStr+'your hand cards : '+hand_p1.join(','));
 }
 
+function showfield() {
+  console.log(preStr+'field : ' + getFieldStr());
+}
+
+function getFieldStr(){
+  let str='';
+  for(let a in field){
+    str+= a+":"+field[a]+" ";
+  }
+  return str;
+}
+
 function drawRandom(count) {
   if (!count) count = 5;
   console.log(preStr+'draw ' + count + ' cards');
@@ -114,5 +163,15 @@ function drawOne() {
   deck_p1_rt.main.shift();
   hand_p1.push(card);
   return card;
+}
+
+function set(pos,pos2) {
+  if(!pos||!pos2){
+    console.log('need param');
+    return;
+  }
+  if(pos.startWith('hand')){
+    console.log('pos')
+  }
 }
 
