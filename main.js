@@ -37,6 +37,14 @@ const commands = [
   {
     commandName: 'set',
     func: set
+  },
+  {
+    commandName: 'find',
+    func: find
+  },
+  {
+    commandName: 'grav',
+    func: showgrav
   }
 ]
 let deck_p1;
@@ -54,26 +62,26 @@ let field = {
   ex2:null,
   fm1:null,
   fm2:null,
-  ma1_1:null,
-  ma1_2:null,
-  ma1_3:null,
-  ma1_4:null,
-  ma1_5:null,
   mo1_1:null,
   mo1_2:null,
   mo1_3:null,
   mo1_4:null,
   mo1_5:null,
-  ma2_1:null,
-  ma2_2:null,
-  ma2_3:null,
-  ma2_4:null,
-  ma2_5:null,
+  ma1_1:null,
+  ma1_2:null,
+  ma1_3:null,
+  ma1_4:null,
+  ma1_5:null,
   mo2_1:null,
   mo2_2:null,
   mo2_3:null,
   mo2_4:null,
   mo2_5:null,
+  ma2_1:null,
+  ma2_2:null,
+  ma2_3:null,
+  ma2_4:null,
+  ma2_5:null,
 }
 
 const preStr='> ';
@@ -138,6 +146,10 @@ function showfield() {
   console.log(preStr+'field : ' + getFieldStr());
 }
 
+function showgrav() {
+  console.log(preStr+'grav : ' + grav_p1.join(','));
+}
+
 function getFieldStr(){
   let str='';
   for(let a in field){
@@ -172,18 +184,20 @@ function set(pos,pos2) {
     return;
   }
   let from,to;
-  if(pos.startsWith('hand')){
-    const index=_.toNumber(pos.slice(4))-1;
+  if(pos.startsWith('h')){
+    const index=_.toNumber(pos.slice(1))-1;
     from=hand_p1[index]
     hand_p1.splice(index,1)
   }else{
     from=field[pos]
     field[pos]=null
   }
-  if(pos2.startsWith('hand')){
-    const index=_.toNumber(pos2.slice(4))-1;
+  if(pos2.startsWith('h')){
+    const index=_.toNumber(pos2.slice(1))-1;
     to=hand_p1[index]
     hand_p1[index]=from
+  }else if(pos2.startsWith('g')){
+    grav_p1.push(from)
   }else{
     to=field[pos2]
     field[pos2]=from
@@ -191,5 +205,13 @@ function set(pos,pos2) {
   console.log(preStr+' set '+from+' => '+to)
   hand();
   showfield();
+}
+
+function find(name){
+  const index=_.indexOf(deck_p1_rt.main,name);
+  hand_p1.push(deck_p1_rt.main[index])
+  deck_p1_rt.main.splice(index,1);
+  shuffle();
+  hand();
 }
 
