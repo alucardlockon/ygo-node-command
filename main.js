@@ -50,30 +50,30 @@ let hand_p2;
 let grav_p2;
 let rid_p2;
 let field = {
-  ex_1:null,
-  ex_2:null,
-  fm_1:null,
-  fm_2:null,
-  ma_1_1:null,
-  ma_1_2:null,
-  ma_1_3:null,
-  ma_1_4:null,
-  ma_1_5:null,
-  mo_1_1:null,
-  mo_1_2:null,
-  mo_1_3:null,
-  mo_1_4:null,
-  mo_1_5:null,
-  ma_2_1:null,
-  ma_2_2:null,
-  ma_2_3:null,
-  ma_2_4:null,
-  ma_2_5:null,
-  mo_2_1:null,
-  mo_2_2:null,
-  mo_2_3:null,
-  mo_2_4:null,
-  mo_2_5:null,
+  ex1:null,
+  ex2:null,
+  fm1:null,
+  fm2:null,
+  ma1_1:null,
+  ma1_2:null,
+  ma1_3:null,
+  ma1_4:null,
+  ma1_5:null,
+  mo1_1:null,
+  mo1_2:null,
+  mo1_3:null,
+  mo1_4:null,
+  mo1_5:null,
+  ma2_1:null,
+  ma2_2:null,
+  ma2_3:null,
+  ma2_4:null,
+  ma2_5:null,
+  mo2_1:null,
+  mo2_2:null,
+  mo2_3:null,
+  mo2_4:null,
+  mo2_5:null,
 }
 
 const preStr='> ';
@@ -141,6 +141,7 @@ function showfield() {
 function getFieldStr(){
   let str='';
   for(let a in field){
+    if(a=='ex1'||a=='fm1'||a=='ma1_1'||a=='mo1_1'||a=='ma2_1'||a=='mo2_1') str+='\n'
     str+= a+":"+field[a]+" ";
   }
   return str;
@@ -170,8 +171,25 @@ function set(pos,pos2) {
     console.log('need param');
     return;
   }
-  if(pos.startWith('hand')){
-    console.log('pos')
+  let from,to;
+  if(pos.startsWith('hand')){
+    const index=_.toNumber(pos.slice(4))-1;
+    from=hand_p1[index]
+    hand_p1.splice(index,1)
+  }else{
+    from=field[pos]
+    field[pos]=null
   }
+  if(pos2.startsWith('hand')){
+    const index=_.toNumber(pos2.slice(4))-1;
+    to=hand_p1[index]
+    hand_p1[index]=from
+  }else{
+    to=field[pos2]
+    field[pos2]=from
+  }
+  console.log(preStr+' set '+from+' => '+to)
+  hand();
+  showfield();
 }
 
