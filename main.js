@@ -44,8 +44,7 @@ const commands = [{
   {
     commandName: 'grav',
     func: showgrav
-  }
-  ,
+  },
   {
     commandName: 'deck',
     func: showDeckSorted
@@ -98,7 +97,7 @@ let field = {
 
 const preStr = '> ';
 
-readDeck('EMmss')
+readDeck('EMmss4')
 shuffle()
 draw(5)
 hand()
@@ -200,7 +199,7 @@ function set(pos, pos2) {
     const index = _.toNumber(pos.slice(1)) - 1;
     from = hand_p1[index]
     hand_p1.splice(index, 1)
-  }else if (pos.startsWith('g')) {
+  } else if (pos.startsWith('g')) {
     const index = _.toNumber(pos.slice(1)) - 1;
     from = grav_p1[index]
     grav_p1.splice(index, 1)
@@ -231,15 +230,15 @@ function find(name) {
   hand();
 }
 
-function showDeckSorted(){
-  console.log(preStr+'your deck now : '+_.sortBy(deck_p1_rt.main,x=>x).join(','))
+function showDeckSorted() {
+  console.log(preStr + 'your deck now : ' + _.sortBy(deck_p1_rt.main, x => x).join(','))
 }
 
-function showEx(){
-  console.log(preStr+'your ex now : '+deck_p1_rt.ex.join(','))
+function showEx() {
+  console.log(preStr + 'your ex now : ' + deck_p1_rt.ex.join(','))
 }
 
-function showAll(){
+function showAll() {
   hand();
   showfield();
   showgrav();
